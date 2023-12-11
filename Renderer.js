@@ -1,50 +1,57 @@
-
 class Renderer {
-    renderer(data){
-        console.log(data)
-        $(".user-container").empty()
-        $(".friends-container").empty()
-        $(".quote-container").empty()
-        $(".pokemon-container").empty()
-        $(".meat-container").empty()
-        let users=data[0]
-        let kanye=data[1]
-        let pokemon=data[2]
-        let bacon=data[3]
-       
-       
-            let first_name=users.results[0].name.first
-            let last_name=users.results[0].name.last
-            let title=users.results[0].name.title
-            let img=users.results[0].picture.large
-            let friend1=users.results[1].name.first+" "+users.results[1].name.last
-            let friend2=users.results[2].name.first+" "+users.results[2].name.last
-            let friend3=users.results[3].name.first+" "+users.results[3].name.last
-            let friend4=users.results[4].name.first+" "+users.results[4].name.last
-            let friend5=users.results[5].name.first+" "+users.results[5].name.last
-            let friend6=users.results[6].name.first+" "+users.results[6].name.last
-            $(".user-container").append("<img src="+ img+" id=profile-pic>")
-            $(".user-container").append("<div>"+title+" " +first_name+" "+last_name +"<div/>")
-            $(".friends-container").append("<div>"+friend1+"<div/>")
-            $(".friends-container").append("<div >"+friend2+"<div/>")
-            $(".friends-container").append("<div>"+friend3+"<div/>")
-            $(".friends-container").append("<div>"+friend4+"<div/>")
-            $(".friends-container").append("<div>"+friend5+"<div/>")
-            $(".friends-container").append("<div>"+friend6+"<div/>")
+  renderer(data) {
+    $(".user-container").empty();
+    $(".friends-container").empty();
+    $(".quote-container").empty();
+    $(".pokemon-container").empty();
+    $(".meat-container").empty();
+    this.renserUsers(data[0]);
+    this.renderkanye(data[1]);
+    this.renderPokemon(data[2]);
+    this.renderBacon(data[3]);
+  }
 
-        $(".quote-container").append("<div>Favorite quote:<div/>",
-        "<p >"+kanye.quote +"<p/>")
-        
-    
-        console.log(pokemon)
-        console.log(pokemon.name)
-        let img_pokemon=pokemon.sprites.front_default
-        $(".pokemon-container").append("<img src="+img_pokemon+" id=pokemon-image >", "<span>"+"Pokemon:"+" "+ pokemon.name+"<span/>")
+  renserUsers(users) {
+    let userData = {
+      first_name: users.results[0].name.first,
+      last_name: users.results[0].name.last,
+      title: users.results[0].name.title,
+      img: users.results[0].picture.large,
+      friends: [
+        users.results[1].name.first + " " + users.results[1].name.last,
+        users.results[2].name.first + " " + users.results[2].name.last,
+        users.results[3].name.first + " " + users.results[3].name.last,
+        users.results[4].name.first + " " + users.results[4].name.last,
+        users.results[5].name.first + " " + users.results[5].name.last,
+        users.results[6].name.first + " " + users.results[6].name.last,
+      ],
+    };
 
+    let userTemplate = Handlebars.compile($("#user-template").html());
+    let friendsTemplate = Handlebars.compile($("#friends-template").html());
 
-        
-        $(".meat-container").append("<p>About me: <p>","<div>"+bacon[0] +"<div/>")
+    $(".user-container").append(userTemplate(userData));
+    $(".friends-container").append(
+      friendsTemplate({ friends: userData.friends })
+    );
+  }
 
+  renderkanye(kanye) {
+    let kanyeQuote = Handlebars.compile($("#kayne-template").html());
+    $(".quote-container").append(kanyeQuote(kanye.quote));
+  }
 
-    }
+  renderPokemon(pokemon) {
+    let pokemonQ = Handlebars.compile($("#pokemon-template").html());
+    let img_pokemon = pokemon.sprites.front_default;
+    let name = pokemon.name;
+    $(".pokemon-container").append(pokemonQ({ img_pokemon, name }));
+  }
+
+  renderBacon(bacon) {
+    let baconQ = Handlebars.compile($("#bacon-template").html());
+    let baconValue = bacon[0];
+    console.log(baconValue);
+    $(".meat-container").append(baconQ({ baconValue }));
+  }
 }

@@ -1,44 +1,69 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>API Project</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Indie+Flower"
+      rel="stylesheet"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+  </head>
 
-</head>
+  <body>
+    <div class="container">
+      <div class="user-container"></div>
+      <div class="quote-container"></div>
+      <div class="content-container">
+        <div class="pokemon-container"></div>
+        <div class="meat-container"></div>
+      </div>
+      <div class="friends">
+        <h4>Friends</h4>
+        <div class="friends-container"></div>
+      </div>
 
-<body>
-    <div class="container">	
-        <div class="user-container">
-            
-        </div>	
-        <div class="quote-container"></div>	
-        <div class="content-container">	
-            <div class="pokemon-container"></div>	
-            <div class="meat-container"></div>	
-        </div>	
-        <div class="friends">	
-            <h4>Friends</h4>	
-            <div class="friends-container">	
-            </div>	
-        </div>	
-        <div class="buttons">	
-            <button class="loaddata" onclick="Show_Data()">Load User Data</button>	
-            <button>Display User</button>	
-        </div>	
-        <script src="APIManager.js"></script>
-        <script src="Renderer.js"></script>
+      <div class="buttons">
+        <button class="loaddata" onclick="Show_Data()">Load User Data</button>
+        <button>Display User</button>
+      </div>
 
-        <script src="main.js"></script>
-        
+      <script id="user-template" type="text/x-handlebars-template">
+        <img src="{{img}}" id="profile-pic" />
+        <div>{{title}} {{first_name}} {{last_name}}</div>
+      </script>
+
+      <script id="friends-template" type="text/x-handlebars-template">
+        {{#each friends}}
+          <div>{{this}}</div>
+        {{/each}}
+      </script>
+
+      <script id="kayne-template" type="text/x-handlebars-template">
+        <div>{{kanye}}</div>
+      </script>
+
+      <script id="pokemon-template" type="text/x-handlebars-template">
+        <img src="{{img_pokemon}}" />
+        <div> {{name}}</div>
+      </script>
+
+      <script id="bacon-template" type="text/x-handlebars-template">
+        <div> {{baconValue}}</div>
+      </script>
+
+      <script src="APIManager.js"></script>
+      <script src="Renderer.js"></script>
+      <script src="main.js"></script>
     </div>
-</body>
-
+  </body>
 </html>
